@@ -16,12 +16,12 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id('id_cliente');
             $table->string('tipo_ced');
-            $table->integer('nro_cedula');
+            $table->integer('nro_cedula')->unique();
             $table->string('nombre_cliente');
             $table->string('apellido_cliente');
             $table->string('direccion');
             $table->string('telefono');
-            $table->string('status');
+            $table->enum('status',['activo','inactivo'])->default('activo');
             $table->timestamps();
         });
     }

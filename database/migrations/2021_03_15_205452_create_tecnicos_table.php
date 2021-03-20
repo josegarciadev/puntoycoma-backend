@@ -16,13 +16,13 @@ class CreateTecnicosTable extends Migration
         Schema::create('tecnicos', function (Blueprint $table) {
             $table->id('id_tecnico');
             $table->string('tipo_ced');
-            $table->integer('cedula');
+            $table->string('cedula')->unique();
             $table->string('nombre_tec');
             $table->string('apellido_tec');
             $table->string('direccion');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('telefono');
-            $table->string('status');
+            $table->enum('status',['activo','inactivo'])->default('activo');
             $table->timestamps();
         });
     }

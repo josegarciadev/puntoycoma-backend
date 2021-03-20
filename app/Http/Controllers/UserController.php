@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class CategoriaController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,17 @@ class CategoriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $messages=[
-        'nombre_categoria.required'=>'El nombre del categoria es requerido',
-        'nombre_categoria.unique'=>'Este nombre ya existe, porfavor intente con otro',
-        'descripcion_categoria.required'=>'El numero es requerido',
-    ];
+        'nombres.required'=>'Los nombres son requeridos',
+        'email.required'=>'El email es requerido',
+        'email.unique'=>'Esta email ya esta registrado en el sistema',
+        'password.required'=>'La contraseña es requerida',
+        'password.min'=>'La contraseña debe tener minimo 6 caracteres',
+        'status.required'=>'El estatus es requerido',
+        'status.in'=>'El status tiene que ser activo o inactivo',
+       ];
     public function index()
     {
-        return Categoria::get();
+        return User::get();
     }
 
     /**
@@ -31,20 +35,22 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+
         $rules=[
-            'nombre_categoria'=>'required|unique:categoria',
-            'descripcion_categoria'=>'required',
+            'nombres'=>'required',
+            'email'=>'required|unique:users',
+            'password'=>'required|min:6',
+            'status'=>'required|in:activo,inactivo'
         ];
         $validator=\Validator::make($request->all(),$rules,$this->messages);
         if ($validator->fails()) {
             return [
-                'Created'=>false,
+                'created'=>false,
                 'errors'=>$validator->errors()->all()
             ];
         }
-
-        $categoria=Categoria::create($request->all());
-        return \Response::json(['Create'=>true],201);
+        User::create($request->all());
+         return ['created' => true];
     }
 
     /**
@@ -55,12 +61,11 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-         $categoria=Categoria::find($id);
-        if ($categoria) {
-            return \Response::json($categoria,200);
+       $user = User::find($id);
+        if($user){
+            return \Response::json($user,200);
         }
         return \Response::json(['errors'=>true],404);
-
     }
 
     /**
@@ -72,24 +77,30 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = Categoria::find($id);
-        if ($categoria) {
-            $rules=[
-                'nombre_categoria'=>['required',Rule::unique('categoria')->ignore($categoria->id_categoria,'id_categoria')],
-                'descripcion_categoria'=>'required',
+        $user=User::find($id);
+        if ($user) {
+             $rules = [
+            'nombres'=>'required',
+            'email'=>['required',Rule::unique('users')->ignore($user->id_user,'id_user')],
+            'password'=>'required|min:6',
+            'status'=>'required|in:activo,inactivo'
             ];
 
             $validator=\Validator::make($request->all(),$rules,$this->messages);
             if ($validator->fails()) {
+
                 return [
                     'updated'=>false,
                     'errors'=>$validator->errors()->all()
                 ];
             }
-            $categoria->update($request->all());
-            return \Response::json(['updated'=>true,'data'=>$categoria],200);
+            $user->update($request->all());
+            return \Response::json(['updated' => true,'data'=>$user],200);
         }
-        return \Response::json(['updated'=>false],404);
+       return \Response::json([
+        'updated' => false,
+        'id'=>'no existe'
+        ],404);
     }
 
     /**
@@ -100,6 +111,7 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+       User::destroy($id);
+         return ['deleted' => true];
     }
 }

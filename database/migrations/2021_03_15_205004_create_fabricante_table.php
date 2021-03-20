@@ -15,7 +15,8 @@ class CreateFabricanteTable extends Migration
     {
         Schema::create('fabricante', function (Blueprint $table) {
             $table->id('id_fabricante');
-            $table->string('nombre_fab');
+            $table->string('nombre_fab')->unique();
+            $table->enum('tipo',['empresa','particular'])->default('particular');
             $table->string('telefono_fab');
             $table->string('direccion_fab');
             $table->timestamps();

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Fabricante extends Model
 {
 	protected $table='fabricante';
-	protected $fillable=array('id_fabricante','nombre_fab','telefono_fab','direccion_fab');
+	protected $primaryKey = 'id_fabricante';
+	protected $fillable=array('nombre_fab','telefono_fab','direccion_fab');
 	protected $hidden = ['created_at','updated_at'];
 
     use HasFactory;

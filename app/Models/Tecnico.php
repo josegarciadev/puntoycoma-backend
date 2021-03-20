@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tecnico extends Model
 {
 	protected $table='tecnicos';
-	protected $fillable=array('id_tecnico','tipo_ced','cedula','nombre_tec','apellido_tec','direccion','email','telefono','status');
+	protected $primaryKey = 'id_tecnico';
+	protected $fillable=array('tipo_ced','cedula','nombre_tec','apellido_tec','direccion','email','telefono','status');
 	protected $hidden = ['created_at','updated_at'];
     use HasFactory;
     public function orden()

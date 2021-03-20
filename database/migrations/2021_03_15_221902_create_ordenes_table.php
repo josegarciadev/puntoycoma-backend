@@ -15,13 +15,13 @@ class CreateOrdenesTable extends Migration
     {
         Schema::create('ordenes', function (Blueprint $table) {
             $table->id('id_orden');
-            $table->unsignedBigInteger('id_cliente');
-            $table->unsignedBigInteger('id_tecnico');
-            $table->unsignedBigInteger('id_categoria');
+            $table->integer('id_cliente');
+            $table->integer('id_tecnico');
+            $table->integer('id_categoria');
             $table->string('marca');
             $table->string('modelo');
             $table->string('observacion');
-            $table->string('status');
+            $table->enum('status',['espera','cancelado','completado'])->default('espera');
             $table->foreign('id_cliente')->references('id_cliente')->on('clientes');
             $table->foreign('id_tecnico')->references('id_tecnico')->on('tecnicos');
             $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
