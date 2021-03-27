@@ -21,7 +21,6 @@ class CreateComponentesTable extends Migration
             $table->string('serial_comp');
             $table->string('cap_comp');
             $table->foreign('id_orden')->references('id_orden')->on('ordenes');
-            $table->date('created_at');
         });
     }
 

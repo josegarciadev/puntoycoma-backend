@@ -33,5 +33,5 @@ Route::apiResource('/api/cliente',ClienteController::class);
 Route::apiResource('/api/user',UserController::class);
 Route::apiResource('/api/producto',ProductoController::class);
 Route::apiResource('/api/orden',OrdenController::class);
-Route::apiResource('/api/componente',ComponenteController::class);
+Route::apiResource('/api/componente',ComponenteController::class)->only('index','show');
 //->middleware('cors')

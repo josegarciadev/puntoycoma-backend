@@ -87,8 +87,15 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto=Producto::find($id);
-        if ($producto) {
+        $producto=DB::table('producto')
+                    ->join('categoria', 'producto.id_categoria', '=', 'categoria.id_categoria')
+                    ->join('fabricante', 'producto.id_fabricante', '=', 'fabricante.id_fabricante')
+                    ->select('producto.*', 'categoria.nombre_categoria', 'fabricante.nombre_fab')
+                    ->where('id_producto', '=', $id)
+                    ->orderBy('id_producto','ASC')
+                    ->get();
+        /*$producto=Producto::find($id);*/
+        if ($producto && !$producto->isEmpty()) {
             return \Response::json($producto,200);
         }
         return \Response::json(['errors'=>true],404);

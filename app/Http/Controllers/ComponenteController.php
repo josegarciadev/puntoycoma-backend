@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ComponenteController extends Controller
 {
@@ -13,7 +14,15 @@ class ComponenteController extends Controller
      */
     public function index()
     {
-        //
+        $componentes=DB::table('componentes')
+                    ->join('ordenes', 'componentes.id_orden', '=', 'ordenes.id_orden')
+                    ->select('componentes.*', 'ordenes.*')
+                    ->orderBy('id_componente','DESC')
+                    ->get();
+        if ($componentes && !$componentes->isEmpty()) {
+            return \Response::json($componentes,200);
+        }
+        return \Response::json(['errors'=>true],404);
     }
 
     /**
@@ -35,7 +44,13 @@ class ComponenteController extends Controller
      */
     public function show($id)
     {
-        //
+        $componentes=DB::table('componentes')
+                    ->where('id_orden', '=', $id)
+                    ->get();
+        if ($componentes && !$componentes->isEmpty()) {
+            return \Response::json($componentes,200);
+        }
+        return \Response::json(['errors'=>true],404);
     }
 
     /**
