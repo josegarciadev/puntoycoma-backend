@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,10 +14,7 @@ class Fabricante extends Model
 	protected $hidden = ['created_at','updated_at'];
 
     use HasFactory;
-    public function producto()
-	{
-		// 1 avión pertenece a un Fabricante.
-		// $this hace referencia al objeto que tengamos en ese momento de Avión.
-		return $this->hasMany('App\Producto');
-	}
+	 function productos(){
+    	return $this->hasMany(Producto::class);
+    }
 }

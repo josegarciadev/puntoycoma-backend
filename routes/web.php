@@ -31,8 +31,7 @@ Route::apiResource('/api/fabricante',FabricanteController::class);
 Route::apiResource('/api/categoria',CategoriaController::class);
 Route::apiResource('/api/cliente',ClienteController::class);
 Route::apiResource('/api/user',UserController::class);
-Route::apiResource('/api/producto',ProductoController::class)->only('index','show');
-Route::apiResource('/api/producto.fabricante.categoria',ProductoFabCatController::class);
+Route::apiResource('/api/producto',ProductoController::class);
 Route::apiResource('/api/orden',OrdenController::class);
 Route::apiResource('/api/componente',ComponenteController::class);
 //->middleware('cors')

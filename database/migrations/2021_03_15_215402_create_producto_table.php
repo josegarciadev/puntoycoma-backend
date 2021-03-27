@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +22,7 @@ class CreateProductoTable extends Migration
             $table->integer('id_fabricante')->unsigned();
             $table->float('stock');
             $table->float('precio');
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->enum('status',['activo','inactivo'])->default('activo');
             $table->foreign('id_categoria')->references('id_categoria')->on('categoria');
             $table->foreign('id_fabricante')->references('id_fabricante')->on('fabricante');

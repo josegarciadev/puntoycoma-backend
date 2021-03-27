@@ -14,17 +14,7 @@ class Cliente extends Model
     use HasFactory;
 	public function orden()
 	{
-		return $this->hasMany(Orden::/**
-		 *
-		 */
-		class ClassName extends AnotherClass
-		{
-
-			function __construct(argument)
-			{
-				# code...
-			}
-		});
+		return $this->hasMany('\App\Orden');
 	}
 
 }

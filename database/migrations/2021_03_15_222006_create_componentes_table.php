@@ -14,14 +14,14 @@ class CreateComponentesTable extends Migration
     public function up()
     {
         Schema::create('componentes', function (Blueprint $table) {
-             $table->id('id_componente');
+            $table->id('id_componente');
             $table->integer('id_orden')->unsigned();
             $table->string('tipo_comp');
             $table->string('modelo_comp');
-            $table->integer('serial_comp');
-            $table->integer('cap_comp');
+            $table->string('serial_comp');
+            $table->string('cap_comp');
             $table->foreign('id_orden')->references('id_orden')->on('ordenes');
-            $table->timestamps();
+            $table->date('created_at');
         });
     }
 

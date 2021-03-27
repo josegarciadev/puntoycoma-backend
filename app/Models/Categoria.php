@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,8 +14,9 @@ class Categoria extends Model
 	protected $hidden = ['created_at','updated_at'];
 
     use HasFactory;
-    function producto(){
-    	return $this->hasMany('App\Producto');
+    //Relacion uno a muchos
+    function productos(){
+    	return $this->hasMany(Producto::class);
     }
 
 }
